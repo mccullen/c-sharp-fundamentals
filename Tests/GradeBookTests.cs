@@ -7,7 +7,8 @@ using Xunit;
 
 namespace Tests
 {
-	class GradeBookTests : IDisposable // allow teardown via Dispose()
+	// NOTE: Class MUST be public 
+	public class GradeBookTests : IDisposable // allow teardown via Dispose()
 	{
 		// Set-up code executed before each test method...
 		public GradeBookTests()
