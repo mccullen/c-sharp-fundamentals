@@ -9,7 +9,7 @@ namespace Tests
 {
 	class GradeBookTests : IDisposable // allow teardown via Dispose()
 	{
-		// Set-up code executed before each test method
+		// Set-up code executed before each test method...
 		public GradeBookTests()
 		{
 		}
