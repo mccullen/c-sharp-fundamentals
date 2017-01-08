@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ClassesAndObjects
 {
-	class GradeBook
+	// Marking class as public makes it available to referencing assemblies
+	// marking it as internal (the default) would mean it is not.
+	public class GradeBook
 	{
 		// Make sure to allocate memory with new!
 		private List<float> _grades = new List<float>();
@@ -18,6 +20,8 @@ namespace ClassesAndObjects
 			_grades.Add(grade);
 		}
 
+		// You could mark this as an internal method so that only books instantiated
+		// in this assembly will be able to use it. 
 		public GradeStatistics ComputeStatistics()
 		{
 			GradeStatistics stats = new GradeStatistics();
