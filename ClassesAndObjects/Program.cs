@@ -12,6 +12,21 @@ namespace ClassesAndObjects
 	{
 		static void Main(string[] args)
 		{
+			//CreateBookAndGetStatistics();
+			Types();
+
+			Console.ReadLine();
+		}
+		private static void Types()
+		{
+
+
+
+		}
+
+		private static void CreateBookAndGetStatistics()
+		{
+
 			// The reference to this assembly allows me to use this class to introduce
 			// speech into my program. It is loaded by the dynamic language runtime
 			// when the class is requested
@@ -29,7 +44,6 @@ namespace ClassesAndObjects
 			Console.WriteLine(stats.LowestGrade);
 			Console.WriteLine(stats.HighestGrade);
 
-			Console.ReadLine();
 		}
 	}
 }

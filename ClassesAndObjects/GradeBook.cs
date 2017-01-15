@@ -10,7 +10,8 @@ namespace ClassesAndObjects
 	// marking it as internal (the default) would mean it is not.
 	public class GradeBook
 	{
-		// Make sure to allocate memory with new!
+		public string Name { get; set; }
+										   // Make sure to allocate memory with new!
 		private List<float> _grades = new List<float>();
 
 		public static float MaximumGrade = 100.0f;
