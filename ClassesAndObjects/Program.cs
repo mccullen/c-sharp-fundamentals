@@ -31,9 +31,29 @@ namespace ClassesAndObjects
 			book.NameChanged = new NameChangedDelegate(OnNameChanged);
 			//book.NameChanged = OnNameChanged; // sugar!
 
+			// This is legal for delegates. But, if it were an event, you couldn't do this.
+			// Usually, you should prefer events to provide encapsulation. Events bascially
+			// translate into a private delegate behind the scenes which only publiclly expose
+			// subscribe (+=) and unsubscripe (-=) methods.
 			//book.NameChanged = OnNameChanged2; This will overwrite the delegate, effectively removing all subscribers.
+			//book.NameChanged("Hehehehe", "I'm invoking the delegate directly from outside the class");
 
 			book.NameChanged += OnNameChanged2; // This creates a multicast delegate.
+
+			book.NameChanged -= OnNameChanged2; // Removes it from the multicast delegate
+
+
+			// Events:
+			book.NameChangedEvent += OnNameChanged;
+			// You can only subscribe and unsubscribe from events. you cannot 
+			// invoke or assign to them directly but only from within the methods
+			// of the class. 
+			//book.NameChangedEvent("This is no longer legal", "Compile Error!!!!");
+			//book.NameChangedEvent = null; // Compile error!!
+
+			// Events using convention with the title.
+			book.TitleChanged += OnTitleChanged;
+			book.Title = "Title";
 
 			// This will invoke the set method on the Name property, passing in
 			// "Jeff's Grade Book" as the "value". 
@@ -57,6 +77,14 @@ namespace ClassesAndObjects
 
 
 
+		}
+		static private void OnTitleChanged(object sender, TitleChangedEventArgs args)
+		{
+			// If you wanted to get a reference to the sender (the GradeBook), you would
+			// have to do an explicit cast here
+			//GradeBook book = (GradeBook)sender;
+			//book.Property = "Changing a property on the sender";
+			Console.WriteLine($"Changed title from {args.OldValue} to {args.NewValue}");
 		}
 		static private void OnNameChanged(string oldName, string newName)
 		{
