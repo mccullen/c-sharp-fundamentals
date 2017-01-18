@@ -10,7 +10,64 @@ namespace ClassesAndObjects
 	// marking it as internal (the default) would mean it is not.
 	public class GradeBook
 	{
-		public string Name { get; set; }
+		public GradeBook()
+		{
+			// Note: Normally it is safer to set properties rather than
+			// the underlying backing field. 
+			_name = "Empty";
+		}
+		// The delegate allows for methods to become subscribed to your class.
+		public NameChangedDelegate NameChanged;
+
+		// Since there is no body for the getter and setter, this is auto-implemented.
+		// The getter simply returns the value and the setter simply sets it without
+		// any custom logic. The C# compiler will automatically generate a private
+		// backing field here. From the user's point of view, this usually isn't 
+		// any different, but sometimes properties and fields are treated differently
+		// like in serialization. Most do not consider fields when serializing. 
+		//public string Name { get; set; }
+		public string Name
+		{
+			get
+			{
+				return _name;
+			}
+			set
+			{
+				if (!string.IsNullOrEmpty(value))
+				{
+					// Name has changed so publish by invoking the delegate. This
+					// will notify all the subscribers.
+					_name = value;
+					NameChanged(_name, value);
+				}
+			}
+		}
+		private string _name;
+
+
+		// Example using non-auto-implemented property. As soon as you implement one, the
+		// getter or the setter, you must implement the other also. 
+		public string Property
+		{
+			// Must return a string here.
+			get
+			{
+				return _property;
+			}
+			set
+			{
+				// Only set value if it is not null or empty. This is the power of ENCAPSULATION:
+				// to protect the internal state of your objects!
+				if (string.IsNullOrEmpty(value))
+				{
+					_property = value;
+				}
+
+			}
+		}
+		private string _property; // private backing field for Property
+
 										   // Make sure to allocate memory with new!
 		private List<float> _grades = new List<float>();
 
