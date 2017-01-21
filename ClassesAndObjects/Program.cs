@@ -28,6 +28,36 @@ namespace ClassesAndObjects
 
 			GradeBook book = new GradeBook();
 
+			try
+			{
+				Console.Write("Enter a name: ");
+				// Ideally, you should not set the Name property until after you know you have
+				// a valid value. You could do this by using a combination of a variable
+				// and a loop which keeps prompting the user until they enter a valid value
+				// and then, once they do, you are good to store the value of that variable
+				// into the Name property
+				book.Name = Console.ReadLine();
+			}
+			// Catch blocks can be chained and the first one to match will be the one that
+			// executes and all the others will be skipped. Thus, include the most specific
+			// exception blocks first.
+			catch (ArgumentException ex)
+			{
+				Console.WriteLine(ex.Message);
+				Console.WriteLine(ex.StackTrace);
+			}
+			// The Exception type is the most general, from which most others inherit, so it
+			// comes last. There are only a few which it cannot catch. These are the ones
+			// that are guaranteed to crash your program. Catching one this general could
+			// be dangerous since you don't know what kind of exception it is. 
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			// Finally is good to add at the end to clean up any resources, regardless
+			// of wheather or not there is an exception thrown. 
+
+
 			book.NameChanged = new NameChangedDelegate(OnNameChanged);
 			//book.NameChanged = OnNameChanged; // sugar!
 

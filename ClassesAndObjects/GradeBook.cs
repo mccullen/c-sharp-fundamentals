@@ -43,14 +43,21 @@ namespace ClassesAndObjects
 			}
 			set
 			{
-				if (!string.IsNullOrEmpty(value))
+				if (string.IsNullOrEmpty(value))
 				{
-					// Name has changed so publish by invoking the delegate. This
-					// will notify all the subscribers.
-					_name = value;
+					throw new ArgumentException("Name cannot be null or empty");
+
+				}
+				// It is good to do this null check here. That way you don't have to
+				// add a catch for a NullReferenceException.
+				if (_name != value && NameChanged != null)
+				{
 					NameChanged(_name, value);
 					NameChangedEvent(_name, value);
 				}
+				// Name has changed so publish by invoking the delegate. This
+				// will notify all the subscribers.
+				_name = value;
 			}
 		}
 		private string _name;
@@ -68,10 +75,10 @@ namespace ClassesAndObjects
 			}
 			set
 			{
-				TitleChangedEventArgs args = new TitleChangedEventArgs() 
+				TitleChangedEventArgs args = new TitleChangedEventArgs()
 				{
-					OldValue = _title, 
-					NewValue = value 
+					OldValue = _title,
+					NewValue = value
 				};
 				// 'this' is the reference. It is a pointer to the GradeBook that invoked this
 				// method. It gets passed implicitly to all non-static methods, which is why
@@ -104,7 +111,7 @@ namespace ClassesAndObjects
 		}
 		private string _property; // private backing field for Property
 
-										   // Make sure to allocate memory with new!
+		// Make sure to allocate memory with new!
 		private List<float> _grades = new List<float>();
 
 		public static float MaximumGrade = 100.0f;
